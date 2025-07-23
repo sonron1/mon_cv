@@ -76,18 +76,20 @@
         .nav-links {
             display: flex;
             list-style: none;
-            gap: 35px;
+            gap: 30px;
+            align-items: center;
         }
 
         .nav-links a {
             text-decoration: none;
             color: var(--pure-white);
             font-weight: 500;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             transition: all 0.3s ease;
             position: relative;
             text-transform: uppercase;
             letter-spacing: 1px;
+            white-space: nowrap;
         }
 
         .nav-links a:hover {
@@ -107,6 +109,153 @@
 
         .nav-links a:hover::after {
             width: 100%;
+        }
+
+        /* Dropdown Menu */
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: rgba(26, 26, 26, 0.98);
+            min-width: 200px;
+            border-radius: 10px;
+            padding: 10px 0;
+            margin-top: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 215, 0, 0.2);
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown-content a {
+            display: block;
+            padding: 10px 20px;
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.9);
+            text-transform: none;
+            letter-spacing: 0.5px;
+        }
+
+        .dropdown-content a::after {
+            display: none;
+        }
+
+        .dropdown-content a:hover {
+            background: rgba(255, 215, 0, 0.1);
+            color: var(--primary-yellow);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .mobile-menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: var(--primary-yellow);
+            margin: 3px 0;
+            transition: all 0.3s ease;
+            border-radius: 2px;
+        }
+
+        .mobile-menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(7px, 7px);
+        }
+
+        .mobile-menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .mobile-menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+        }
+
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 280px;
+            height: 100vh;
+            background: linear-gradient(135deg, var(--primary-black), var(--light-black));
+            transition: right 0.4s ease;
+            z-index: 999;
+            padding: 80px 30px 30px;
+            box-shadow: -5px 0 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .mobile-menu.active {
+            right: 0;
+        }
+
+        .mobile-menu-links {
+            list-style: none;
+            padding: 0;
+        }
+
+        .mobile-menu-links li {
+            margin: 20px 0;
+        }
+
+        .mobile-menu-links a {
+            color: var(--pure-white);
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            display: block;
+            padding: 12px 20px;
+            border-radius: 10px;
+            border-left: 4px solid transparent;
+        }
+
+        .mobile-menu-links a:hover,
+        .mobile-menu-links a.active {
+            color: var(--primary-yellow);
+            background: rgba(255, 215, 0, 0.1);
+            border-left-color: var(--primary-yellow);
+        }
+
+        .mobile-menu-links .sub-menu {
+            margin-left: 20px;
+            margin-top: 10px;
+        }
+
+        .mobile-menu-links .sub-menu a {
+            font-size: 0.9rem;
+            text-transform: none;
+            padding: 8px 15px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .mobile-menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 998;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu-overlay.active {
+            opacity: 1;
+            visibility: visible;
         }
 
         /* Hero Section */
@@ -216,6 +365,41 @@
             transform: translateY(-5px);
             box-shadow: 0 20px 40px rgba(255, 215, 0, 0.4);
             background: linear-gradient(45deg, var(--dark-yellow), var(--primary-yellow));
+        }
+
+        /* Current Project Banner */
+        .current-project {
+            background: linear-gradient(45deg, var(--primary-yellow), var(--dark-yellow));
+            color: var(--primary-black);
+            text-align: center;
+            padding: 20px 0;
+            font-weight: 700;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .current-project::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .current-project i {
+            margin-right: 10px;
+            font-size: 1.2rem;
         }
 
         /* Floating elements */
@@ -416,9 +600,98 @@
             color: var(--primary-black);
         }
 
+        /* Expertises Section */
+        .expertises {
+            background: var(--pure-white);
+        }
+
+        .expertises-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+        }
+
+        .expertise-card {
+            background: var(--light-gray);
+            padding: 50px 40px;
+            border-radius: 25px;
+            text-align: center;
+            transition: all 0.4s ease;
+            border: 3px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .expertise-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(45deg, var(--primary-yellow), var(--dark-yellow));
+        }
+
+        .expertise-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary-yellow);
+            box-shadow: 0 25px 60px rgba(255, 215, 0, 0.15);
+            background: var(--pure-white);
+        }
+
+        .expertise-icon {
+            font-size: 4rem;
+            color: var(--primary-yellow);
+            margin-bottom: 30px;
+            transition: all 0.4s ease;
+        }
+
+        .expertise-card:hover .expertise-icon {
+            transform: scale(1.1);
+            color: var(--dark-yellow);
+        }
+
+        .expertise-card h3 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--primary-black);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .expertise-card p {
+            color: var(--text-gray);
+            font-size: 1.1rem;
+            line-height: 1.7;
+            margin-bottom: 25px;
+        }
+
+        .expertise-card ul {
+            list-style: none;
+            padding: 0;
+            text-align: left;
+        }
+
+        .expertise-card li {
+            margin-bottom: 12px;
+            padding-left: 25px;
+            position: relative;
+            color: var(--text-gray);
+            font-size: 1rem;
+        }
+
+        .expertise-card li::before {
+            content: '▸';
+            color: var(--primary-yellow);
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+
         /* Formation Section */
         .formation {
-            background: var(--pure-white);
+            background: var(--light-gray);
         }
 
         .formation-grid {
@@ -428,7 +701,7 @@
         }
 
         .formation-item {
-            background: var(--light-gray);
+            background: var(--pure-white);
             padding: 40px;
             border-radius: 20px;
             border-left: 6px solid var(--primary-yellow);
@@ -452,7 +725,6 @@
         .formation-item:hover {
             transform: translateY(-8px);
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
-            background: var(--pure-white);
         }
 
         .formation-date {
@@ -481,6 +753,83 @@
         .formation-item p {
             color: var(--text-gray);
             line-height: 1.7;
+        }
+
+        /* Formations Clients Section */
+        .formations-clients {
+            background: var(--pure-white);
+        }
+
+        .formations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+        }
+
+        .formation-client-item {
+            background: var(--light-gray);
+            padding: 40px;
+            border-radius: 20px;
+            border-top: 6px solid var(--primary-yellow);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .formation-client-item::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(45deg, rgba(255, 215, 0, 0.1), transparent);
+            border-radius: 50%;
+            transform: translate(-50%, 50%);
+        }
+
+        .formation-client-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+            background: var(--pure-white);
+        }
+
+        .formation-client-item .formation-date {
+            color: var(--primary-yellow);
+            font-weight: 700;
+            font-size: 1rem;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .formation-client-item h3 {
+            color: var(--primary-black);
+            margin-bottom: 12px;
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+
+        .formation-client-item h4 {
+            color: var(--text-gray);
+            margin-bottom: 20px;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .formation-client-item p {
+            color: var(--text-gray);
+            line-height: 1.7;
+        }
+
+        .client-location {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--primary-yellow);
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-top: 15px;
         }
 
         /* Experience Section */
@@ -641,6 +990,7 @@
             transform: translateY(-12px);
             box-shadow: 0 30px 80px rgba(0, 0, 0, 0.15);
             border-color: var(--primary-yellow);
+            background: var(--pure-white);
         }
 
         .project-card-content {
@@ -678,6 +1028,30 @@
 
         .project-link i {
             margin-right: 8px;
+        }
+
+        .project-status {
+            display: inline-block;
+            padding: 8px 16px;
+            background: linear-gradient(45deg, var(--primary-yellow), var(--dark-yellow));
+            color: var(--primary-black);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+        }
+
+        .project-status.current {
+            background: linear-gradient(45deg, #28a745, #20c997);
+            color: var(--pure-white);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
         }
 
         /* Contact Section */
@@ -815,11 +1189,32 @@
             font-size: 1rem;
             opacity: 0.8;
             font-weight: 400;
+            margin-bottom: 40px;
         }
 
         .interests strong {
             color: var(--primary-yellow);
             font-weight: 700;
+        }
+
+        /* Copyright Footer */
+        .copyright {
+            background: var(--dark-black);
+            color: rgba(255, 255, 255, 0.6);
+            text-align: center;
+            padding: 30px 0;
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(255, 215, 0, 0.1);
+        }
+
+        .copyright p {
+            margin: 0;
+            font-weight: 400;
+        }
+
+        .copyright span {
+            color: var(--primary-yellow);
+            font-weight: 600;
         }
 
         /* Animations */
@@ -875,16 +1270,23 @@
         }
 
         /* Responsive */
-        @media (max-width: 768px) {
+        @media (max-width: 1024px) {
             .nav-links { display: none; }
+            .mobile-menu-toggle { display: flex; }
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 60px;
+            }
+            .expertises-grid {
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
             .hero h1 { font-size: 2.8rem; }
             .hero h2 { font-size: 1.5rem; }
             .hero p { font-size: 1.1rem; }
             .profile-img { width: 200px; height: 200px; }
-            .about-content {
-                grid-template-columns: 1fr;
-                gap: 50px;
-            }
             .timeline::before { left: 30px; }
             .timeline-item {
                 width: calc(100% - 80px);
@@ -896,9 +1298,12 @@
             .section { padding: 80px 0; }
             .section h2 { font-size: 2.5rem; }
             .formation-grid { grid-template-columns: 1fr; }
+            .formations-grid { grid-template-columns: 1fr; }
             .projects-grid { grid-template-columns: 1fr; }
             .contact-grid { grid-template-columns: 1fr; }
             .languages { gap: 30px; }
+            .expertises-grid { grid-template-columns: 1fr; }
+            .mobile-menu { width: 100%; }
         }
 
         @media (max-width: 480px) {
@@ -907,6 +1312,8 @@
             .section h2 { font-size: 2rem; }
             .nav { padding: 15px 0; }
             .logo { font-size: 1.5rem; }
+            .section { padding: 60px 0; }
+            .current-project { font-size: 1rem; padding: 15px 0; }
         }
 
         /* Scroll animations */
@@ -922,9 +1329,32 @@
         .hover-lift:hover {
             transform: translateY(-5px);
         }
+
+        /* Ripple effect */
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(0);
+            animation: ripple-animation 0.6s linear;
+            pointer-events: none;
+        }
+
+        @keyframes ripple-animation {
+            to {
+                transform: scale(2);
+                opacity: 0;
+            }
+        }
     </style>
 </head>
 <body>
+<!-- Current Project Banner -->
+<div class="current-project">
+    <i class="fas fa-rocket"></i>
+    Actuellement en mission : Projet EEP - Éthiopie | Service Specialist chez GE Vernova
+</div>
+
 <!-- Navigation -->
 <nav class="nav" id="navbar">
     <div class="container">
@@ -933,14 +1363,47 @@
             <ul class="nav-links">
                 <li><a href="#hero">Accueil</a></li>
                 <li><a href="#about">À Propos</a></li>
-                <li><a href="#formation">Formation</a></li>
+                <li><a href="#expertises">Expertises</a></li>
+                <li class="dropdown">
+                    <a href="#formation">Formation</a>
+                    <div class="dropdown-content">
+                        <a href="#formation">Formation Académique</a>
+                        <a href="#formations-clients">Formations Clients</a>
+                    </div>
+                </li>
                 <li><a href="#experience">Expérience</a></li>
                 <li><a href="#projects">Projets</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
+            <div class="mobile-menu-toggle" id="mobileMenuToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
         </div>
     </div>
 </nav>
+
+<!-- Mobile Menu Overlay -->
+<div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu">
+    <ul class="mobile-menu-links">
+        <li><a href="#hero">Accueil</a></li>
+        <li><a href="#about">À Propos</a></li>
+        <li><a href="#expertises">Expertises</a></li>
+        <li><a href="#formation">Formation</a>
+            <div class="sub-menu">
+                <a href="#formation">Académique</a>
+                <a href="#formations-clients">Clients</a>
+            </div>
+        </li>
+        <li><a href="#experience">Expérience</a></li>
+        <li><a href="#projects">Projets</a></li>
+        <li><a href="#contact">Contact</a></li>
+    </ul>
+</div>
 
 <!-- Hero Section -->
 <section id="hero" class="hero">
@@ -954,8 +1417,8 @@
         <div class="hero-content">
             <img src="images/img.jpg" alt="KOUTIKA Manto Ange Marie" class="profile-img">
             <h1>KOUTIKA Manto Ange Marie</h1>
-            <h2>Ingénieur Web & SCADA Engineer</h2>
-            <p>Diplômé en Système Informatique et Logiciel avec une expertise en développement web et ingénierie SCADA. Passionné par l'innovation technologique et l'excellence professionnelle.</p>
+            <h2>Service Specialist GE Vernova & Développeur Web Symfony</h2>
+            <p>Expert en développement web Symfony, ingénierie SCADA et gestion de projets informatiques. Actuellement en mission sur le projet EEP en Éthiopie en tant que Service Specialist chez GE Vernova.</p>
             <a href="#about" class="cta-button">Découvrir mon profil</a>
         </div>
     </div>
@@ -965,12 +1428,12 @@
 <section id="about" class="section about">
     <div class="container">
         <h2>À Propos</h2>
-        <p class="section-subtitle">Un professionnel polyvalent avec une expertise technique approfondie</p>
+        <p class="section-subtitle">Service Specialist GE Vernova avec une expertise en développement Symfony et formation technique internationale</p>
         <div class="about-content">
             <div>
                 <div class="about-text">
-                    <p>Diplômé d'une licence professionnelle d'État en Système Informatique et Logiciel et d'un certificat d'ingénieur Web par l'école Japonaise DIVE INTO THE CODE, de la logistique à la maintenance en passant par la programmation, je suis passionné de tout ce qui concerne le domaine informatique.</p>
-                    <p>Intègre et assidu au travail, je m'efforce de toujours donner le meilleur de moi-même. Mon expertise couvre le développement web, l'ingénierie SCADA, l'administration système et la formation technique.</p>
+                    <p>Actuellement Service Specialist chez GE Vernova, je travaille sur le projet EEP en Éthiopie. Fort d'une expérience internationale dans la formation technique, j'ai dispensé des formations SCADA et bases de données en Côte d'Ivoire, France, Rwanda et Éthiopie.</p>
+                    <p>Expert en développement web Symfony et systèmes SCADA, je combine compétences techniques approfondies et vision internationale pour mener à bien des projets complexes. Mon approche méthodique et ma capacité d'adaptation culturelle me permettent d'exceller dans des environnements multiculturels.</p>
                 </div>
                 <div class="personal-info">
                     <h3>Informations Personnelles</h3>
@@ -983,8 +1446,8 @@
                         <span>Abomey-Calavi, Bénin</span>
                     </div>
                     <div class="info-item">
-                        <i class="fas fa-flag"></i>
-                        <span>Béninois</span>
+                        <i class="fas fa-globe"></i>
+                        <span>Expérience Internationale</span>
                     </div>
                     <div class="info-item">
                         <i class="fas fa-heart"></i>
@@ -993,6 +1456,18 @@
                 </div>
             </div>
             <div class="skills-grid">
+                <div class="skill-item">
+                    <div class="skill-icon"><i class="fab fa-symfony"></i></div>
+                    <h3>Symfony</h3>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-icon"><i class="fas fa-tools"></i></div>
+                    <h3>SCADA</h3>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-icon"><i class="fas fa-chalkboard-teacher"></i></div>
+                    <h3>Formation</h3>
+                </div>
                 <div class="skill-item">
                     <div class="skill-icon"><i class="fab fa-html5"></i></div>
                     <h3>HTML & CSS</h3>
@@ -1022,25 +1497,62 @@
                     <h3>Bootstrap</h3>
                 </div>
                 <div class="skill-item">
-                    <div class="skill-icon"><i class="fab fa-wordpress"></i></div>
-                    <h3>WordPress</h3>
-                </div>
-                <div class="skill-item">
-                    <div class="skill-icon"><i class="fas fa-tools"></i></div>
-                    <h3>SCADA</h3>
-                </div>
-                <div class="skill-item">
                     <div class="skill-icon"><i class="fas fa-shield-alt"></i></div>
                     <h3>Veeam Backup</h3>
                 </div>
                 <div class="skill-item">
-                    <div class="skill-icon"><i class="fab fa-microsoft"></i></div>
-                    <h3>MS Office</h3>
+                    <div class="skill-icon"><i class="fas fa-tasks"></i></div>
+                    <h3>Gestion Projet</h3>
                 </div>
-                <div class="skill-item">
-                    <div class="skill-icon"><i class="fas fa-palette"></i></div>
-                    <h3>Adobe Suite</h3>
-                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Expertises Section -->
+<section id="expertises" class="section expertises">
+    <div class="container">
+        <h2>Mes Expertises</h2>
+        <p class="section-subtitle">Trois domaines d'expertise complémentaires avec une dimension internationale</p>
+        <div class="expertises-grid">
+            <div class="expertise-card">
+                <div class="expertise-icon"><i class="fab fa-symfony"></i></div>
+                <h3>Développeur Web Symfony</h3>
+                <p>Expert en développement d'applications web robustes et scalables avec le framework Symfony. Maîtrise complète de l'écosystème PHP moderne.</p>
+                <ul>
+                    <li>Architecture MVC et design patterns</li>
+                    <li>API REST et services web</li>
+                    <li>Doctrine ORM et bases de données</li>
+                    <li>Tests unitaires et fonctionnels</li>
+                    <li>Sécurité et authentification</li>
+                    <li>Déploiement et optimisation</li>
+                </ul>
+            </div>
+            <div class="expertise-card">
+                <div class="expertise-icon"><i class="fas fa-project-diagram"></i></div>
+                <h3>Service Specialist & Formateur</h3>
+                <p>Spécialiste des services techniques avec une expertise internationale en formation SCADA et administration de bases de données.</p>
+                <ul>
+                    <li>Formation technique internationale</li>
+                    <li>Gestion de projets multi-pays</li>
+                    <li>Support client et assistance technique</li>
+                    <li>Méthodologies de formation adaptées</li>
+                    <li>Communication interculturelle</li>
+                    <li>Transfert de compétences</li>
+                </ul>
+            </div>
+            <div class="expertise-card">
+                <div class="expertise-icon"><i class="fas fa-network-wired"></i></div>
+                <h3>Analyste Systèmes SCADA</h3>
+                <p>Expertise approfondie en systèmes SCADA avec une expérience internationale dans l'intégration et la maintenance de solutions complexes.</p>
+                <ul>
+                    <li>Intégration de systèmes SCADA</li>
+                    <li>Administration de bases de données</li>
+                    <li>Architecture système et réseau</li>
+                    <li>Formation opérateurs SCADA</li>
+                    <li>Optimisation des performances</li>
+                    <li>Support technique international</li>
+                </ul>
             </div>
         </div>
     </div>
@@ -1049,8 +1561,8 @@
 <!-- Formation Section -->
 <section id="formation" class="section formation">
     <div class="container">
-        <h2>Formation</h2>
-        <p class="section-subtitle">Un parcours académique et professionnel diversifié</p>
+        <h2>Formation Académique</h2>
+        <p class="section-subtitle">Un parcours académique et professionnel avec spécialisation continue</p>
         <div class="formation-grid">
             <div class="formation-item">
                 <div class="formation-date">2023 - 2024</div>
@@ -1068,19 +1580,19 @@
                 <div class="formation-date">Sept - Oct 2021</div>
                 <h3>SCADA Engineer</h3>
                 <h4>GE DIGITAL</h4>
-                <p>Formation sur les produits et services de GE Digital à Cotonou.</p>
+                <p>Formation sur les produits et services de GE Digital à Cotonou, spécialisation en systèmes SCADA.</p>
             </div>
             <div class="formation-item">
                 <div class="formation-date">Mars - Nov 2020</div>
                 <h3>Web Engineer</h3>
                 <h4>DIVE INTO THE CODE</h4>
-                <p>Obtention du diplôme d'ingénieur web de l'école Japonaise DIVE INTO THE CODE.</p>
+                <p>Obtention du diplôme d'ingénieur web de l'école Japonaise DIVE INTO THE CODE avec spécialisation Ruby on Rails.</p>
             </div>
             <div class="formation-item">
                 <div class="formation-date">2015 - 2018</div>
                 <h3>Licence Informatique</h3>
                 <h4>LES COURS SONOU COTONOU</h4>
-                <p>Licence en Informatique option Système Informatique et Logiciel.</p>
+                <p>Licence en Informatique option Système Informatique et Logiciel avec bases solides en analyse et gestion de projet.</p>
             </div>
             <div class="formation-item">
                 <div class="formation-date">2015</div>
@@ -1092,19 +1604,87 @@
     </div>
 </section>
 
+<!-- Formations Clients Section -->
+<section id="formations-clients" class="section formations-clients">
+    <div class="container">
+        <h2>Formations Clients Internationales</h2>
+        <p class="section-subtitle">Expertise en formation technique dans plusieurs pays pour des clients majeurs</p>
+        <div class="formations-grid">
+            <div class="formation-client-item">
+                <div class="formation-date">2025</div>
+                <h3>Formation EFEP et OAG</h3>
+                <h4>Client EEP - Ethiopian Electric Power</h4>
+                <p>Formation avancée sur les systèmes EFEP (Ethiopian Electric Power Systems) et OAG (Operations & Analytics Gateway) pour les équipes techniques éthiopiennes.</p>
+                <div class="client-location">
+                    <i class="fas fa-map-marker-alt"></i>
+                    Addis Ababa, Éthiopie
+                </div>
+            </div>
+            <div class="formation-client-item">
+                <div class="formation-date">2023</div>
+                <h3>Formation Habitat et SCADA</h3>
+                <h4>Client REG - Rwanda Energy Group</h4>
+                <p>Formation complète sur les systèmes Habitat et SCADA pour la gestion des infrastructures énergétiques rwandaises. Formation des opérateurs et administrateurs système.</p>
+                <div class="client-location">
+                    <i class="fas fa-map-marker-alt"></i>
+                    Kigali, Rwanda
+                </div>
+            </div>
+            <div class="formation-client-item">
+                <div class="formation-date">2023</div>
+                <h3>Formation Source (Administration BDD)</h3>
+                <h4>Client CIE - Compagnie Ivoirienne d'Électricité</h4>
+                <p>Formation spécialisée en administration de bases de données Source pour les équipes techniques de la CIE. Migration et optimisation des systèmes existants.</p>
+                <div class="client-location">
+                    <i class="fas fa-map-marker-alt"></i>
+                    Massy, France
+                </div>
+            </div>
+            <div class="formation-client-item">
+                <div class="formation-date">2022</div>
+                <h3>Formation SCADA Opérateur</h3>
+                <h4>Client CIE - Compagnie Ivoirienne d'Électricité</h4>
+                <p>Formation des opérateurs SCADA de première ligne pour la surveillance et le contrôle des infrastructures électriques. Formation pratique sur site.</p>
+                <div class="client-location">
+                    <i class="fas fa-map-marker-alt"></i>
+                    Yamoussoukro, Côte d'Ivoire
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 <!-- Experience Section -->
 <section id="experience" class="section experience">
     <div class="container">
         <h2>Expérience Professionnelle</h2>
-        <p class="section-subtitle">Plus de 5 ans d'expérience dans le développement et l'ingénierie système</p>
+        <p class="section-subtitle">Plus de 6 ans d'expérience avec des missions internationales et une expertise technique approfondie</p>
         <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <h3>Service Specialist</h3>
+                    <h4>GE VERNOVA - Projet EEP (Éthiopie)</h4>
+                    <div class="period">Fin 2024 - 2025</div>
+                    <ul>
+                        <li>Service Specialist sur le projet EEP en Éthiopie</li>
+                        <li>Formation technique des équipes locales</li>
+                        <li>Support technique avancé et intégration système</li>
+                        <li>Formation EFEP et OAG à Addis Ababa</li>
+                        <li>Gestion de projets techniques internationaux</li>
+                    </ul>
+                </div>
+                <div class="timeline-date">2025</div>
+            </div>
+
             <div class="timeline-item">
                 <div class="timeline-content">
                     <h3>Intervention Service Specialist</h3>
                     <h4>GE DIGITAL - Talent Plus (Rwanda - Kigali)</h4>
                     <div class="period">2023 - 2024</div>
                     <ul>
-                        <li>Formation Base de données et Habitat aux clients</li>
+                        <li>Formation Base de données et Habitat aux clients REG</li>
+                        <li>Formation Source (BDD) aux équipes CIE en France</li>
+                        <li>Gestion de projets d'intégration système</li>
                         <li>Tâches IT sur les serveurs HPE</li>
                         <li>Intégration des applications projets sur Windows Server 2019</li>
                     </ul>
@@ -1114,13 +1694,15 @@
 
             <div class="timeline-item">
                 <div class="timeline-content">
-                    <h3>Assistant Technique</h3>
+                    <h3>Assistant Technique & Formateur</h3>
                     <h4>GE DIGITAL - WAPP (CIC Calavi)</h4>
                     <div class="period">Jan - Juin 2023</div>
                     <ul>
                         <li>Assistant technique EMS - WAMS - MMS</li>
-                        <li>Période de disponibilité Mars - Juin</li>
-                        <li>Support technique système</li>
+                        <li>Formation des opérateurs SCADA</li>
+                        <li>Coordination d'équipes techniques internationales</li>
+                        <li>Gestion de la disponibilité système</li>
+                        <li>Support technique et formation utilisateurs</li>
                     </ul>
                 </div>
                 <div class="timeline-date">2023</div>
@@ -1128,14 +1710,15 @@
 
             <div class="timeline-item">
                 <div class="timeline-content">
-                    <h3>Intégrateur Système</h3>
+                    <h3>Intégrateur Système & Formateur SCADA</h3>
                     <h4>GE DIGITAL - Projets Internationaux</h4>
                     <div class="period">Nov 2022 - Jan 2023</div>
                     <ul>
-                        <li>Projet TRCC/Libye - Remote</li>
+                        <li>Formation SCADA Opérateur CIE à Yamoussoukro</li>
+                        <li>Projet TRCC/Libye - Travail à distance</li>
+                        <li>Analyse et intégration de systèmes complexes</li>
                         <li>Backup - Restauration ESXI - VMs</li>
-                        <li>Maintenance CIE Abidjan</li>
-                        <li>Intervention Courneuve - France</li>
+                        <li>Intervention technique Courneuve - France</li>
                     </ul>
                 </div>
                 <div class="timeline-date">2022</div>
@@ -1143,15 +1726,15 @@
 
             <div class="timeline-item">
                 <div class="timeline-content">
-                    <h3>SCADA Engineer</h3>
+                    <h3>SCADA Engineer & Chef de Projet</h3>
                     <h4>GE DIGITAL - Projet NDY/Côte d'Ivoire</h4>
                     <div class="period">Sept 2020 - Nov 2022</div>
                     <ul>
-                        <li>SAT NDY - Tests et mise en service</li>
-                        <li>Modeling BD, PRE-SAT</li>
+                        <li>Gestion complète du projet SAT NDY</li>
+                        <li>Modeling BD, PRE-SAT et tests de validation</li>
                         <li>Formation Opérateurs SCADA 1st Level</li>
                         <li>Architecture H/S - Active Directory</li>
-                        <li>Administration Réseau</li>
+                        <li>Administration Réseau et supervision d'équipe</li>
                     </ul>
                 </div>
                 <div class="timeline-date">2021</div>
@@ -1164,8 +1747,9 @@
                     <div class="period">Dec 2020 - Mars 2021</div>
                     <ul>
                         <li>Développement de l'application JCI</li>
-                        <li>Gestion des paiements des membres</li>
-                        <li>Espace Admin avec gestion des utilisateurs</li>
+                        <li>Gestion de projet et coordination équipe</li>
+                        <li>Système de paiement et gestion des utilisateurs</li>
+                        <li>Espace Admin avec tableau de bord</li>
                         <li>Application Nature Tropicale (marketplace)</li>
                     </ul>
                 </div>
@@ -1174,10 +1758,11 @@
 
             <div class="timeline-item">
                 <div class="timeline-content">
-                    <h3>Développeur WordPress</h3>
+                    <h3>Développeur WordPress & Analyste</h3>
                     <h4>Evolutic Bénin, Cotonou</h4>
                     <div class="period">Jan - Avr 2020</div>
                     <ul>
+                        <li>Analyse des besoins clients</li>
                         <li>Refonte du blog de Gustave Gazard</li>
                         <li>Refonte du site Web de Gustave Gazard</li>
                         <li>Conception du site web Allbest.co</li>
@@ -1188,14 +1773,15 @@
 
             <div class="timeline-item">
                 <div class="timeline-content">
-                    <h3>Designer Graphique</h3>
+                    <h3>Designer Graphique & Coordinateur Projet</h3>
                     <h4>Houefa Event & Partenaires</h4>
                     <div class="period">Jan 2019 - Jan 2021</div>
                     <ul>
+                        <li>Gestion de projets créatifs multiples</li>
                         <li>Designer pour Houefa Event (événementiel)</li>
                         <li>Designer pour KPEDJI (mode)</li>
                         <li>Designer pour Pro Elan (produits pharmaceutiques)</li>
-                        <li>Conception affiches, logos, cartes de visite</li>
+                        <li>Coordination équipes créatives</li>
                     </ul>
                 </div>
                 <div class="timeline-date">2019</div>
@@ -1208,12 +1794,42 @@
 <section id="projects" class="section projects">
     <div class="container">
         <h2>Projets & Réalisations</h2>
-        <p class="section-subtitle">Quelques projets marquants de mon parcours</p>
+        <p class="section-subtitle">Portfolio de projets web Symfony, applications mobiles et systèmes complexes</p>
         <div class="projects-grid">
             <div class="project-card">
                 <div class="project-card-content">
+                    <div class="project-status current">Mission Actuelle</div>
+                    <h3>Projet EEP - Ethiopian Electric Power</h3>
+                    <p>Mission en cours en Éthiopie en tant que Service Specialist GE Vernova. Formation technique des équipes locales et intégration de systèmes énergétiques complexes.</p>
+                    <a href="#" class="project-link">
+                        <i class="fas fa-bolt"></i> Mission en cours - Éthiopie
+                    </a>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-card-content">
+                    <div class="project-status">En Cours</div>
+                    <h3>Application de Signalement Urbain</h3>
+                    <p>Développement d'une application web Symfony permettant aux citoyens de signaler les problèmes urbains (voirie, éclairage, propreté). Interface admin pour la gestion et le suivi des signalements.</p>
+                    <a href="#" class="project-link">
+                        <i class="fas fa-code"></i> Projet en développement
+                    </a>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-card-content">
+                    <div class="project-status">En Cours</div>
+                    <h3>Système de Gestion de Salle de Sport</h3>
+                    <p>Application complète de gestion de salle de sport développée en Symfony. Gestion des membres, planning des cours, facturation automatique et tableau de bord analytics.</p>
+                    <a href="#" class="project-link">
+                        <i class="fas fa-dumbbell"></i> Projet en développement
+                    </a>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-card-content">
                     <h3>Le Télégramme Bénin</h3>
-                    <p>Site web pour un groupe de presse béninois. Développement complet avec système de gestion de contenu et interface d'administration.</p>
+                    <p>Site web pour un groupe de presse béninois. Développement complet avec système de gestion de contenu, interface d'administration et optimisation SEO.</p>
                     <a href="http://www.letelegramme-pressebenin.com" class="project-link" target="_blank">
                         <i class="fas fa-external-link-alt"></i> Voir le projet
                     </a>
@@ -1222,7 +1838,7 @@
             <div class="project-card">
                 <div class="project-card-content">
                     <h3>Cica Market</h3>
-                    <p>Plateforme e-commerce complète avec gestion des produits, système de paiement et tableau de bord administrateur.</p>
+                    <p>Plateforme e-commerce complète avec gestion des produits, système de paiement sécurisé, tableau de bord administrateur et analytics avancées.</p>
                     <a href="http://www.cicamarket.net" class="project-link" target="_blank">
                         <i class="fas fa-external-link-alt"></i> Voir le projet
                     </a>
@@ -1231,17 +1847,8 @@
             <div class="project-card">
                 <div class="project-card-content">
                     <h3>Gustave Gazard</h3>
-                    <p>Site web personnel pour formateur avec blog intégré, système de réservation de cours et espace membre.</p>
+                    <p>Site web personnel pour formateur avec blog intégré, système de réservation de cours en ligne, espace membre et gestion automatisée des paiements.</p>
                     <a href="http://www.gustavegazard.com" class="project-link" target="_blank">
-                        <i class="fas fa-external-link-alt"></i> Voir le projet
-                    </a>
-                </div>
-            </div>
-            <div class="project-card">
-                <div class="project-card-content">
-                    <h3>Application JCI</h3>
-                    <p>Application web Ruby on Rails pour la Jeune Chambre Internationale avec gestion des membres et système de paiement.</p>
-                    <a href="https://juniorchamberinterntional.herokuapp.com" class="project-link" target="_blank">
                         <i class="fas fa-external-link-alt"></i> Voir le projet
                     </a>
                 </div>
@@ -1254,7 +1861,7 @@
 <section id="contact" class="section contact">
     <div class="container">
         <h2>Contact</h2>
-        <p class="section-subtitle">N'hésitez pas à me contacter pour vos projets</p>
+        <p class="section-subtitle">N'hésitez pas à me contacter pour vos projets de développement web Symfony ou missions techniques internationales</p>
         <div class="contact-grid">
             <div class="contact-item">
                 <div class="contact-icon"><i class="fas fa-envelope"></i></div>
@@ -1268,13 +1875,13 @@
             </div>
             <div class="contact-item">
                 <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
-                <h3>Localisation</h3>
-                <p>Abomey-Calavi, Bénin</p>
+                <h3>Localisation Actuelle</h3>
+                <p>Addis Ababa, Éthiopie (Mission EEP)</p>
             </div>
             <div class="contact-item">
-                <div class="contact-icon"><i class="fas fa-birthday-cake"></i></div>
-                <h3>Âge</h3>
-                <p>26 ans (né le 28 Mars 1998)</p>
+                <div class="contact-icon"><i class="fas fa-globe-africa"></i></div>
+                <h3>Disponibilité</h3>
+                <p>Missions Internationales</p>
             </div>
         </div>
 
@@ -1286,13 +1893,45 @@
                 <div><i class="fas fa-comments"></i>Waama</div>
             </div>
             <p class="interests">
-                <strong>Centres d'intérêts :</strong> Gym • Football • Tennis • Lecture • Gaming
+                <strong>Centres d'intérêts :</strong> Gym • Football • Tennis • Lecture • Gaming • Voyages
             </p>
         </div>
     </div>
 </section>
 
+<!-- Copyright Footer -->
+<footer class="copyright">
+    <div class="container">
+        <p>&copy; 2025 <span>KOUTIKA Manto Ange Marie</span>. Tous droits réservés.</p>
+    </div>
+</footer>
+
 <script>
+    // Mobile Menu Toggle
+    const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
+    const mobileMenuLinks = document.querySelectorAll('.mobile-menu-links a');
+
+    function toggleMobileMenu() {
+        mobileMenuToggle.classList.toggle('active');
+        mobileMenu.classList.toggle('active');
+        mobileMenuOverlay.classList.toggle('active');
+        document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+    }
+
+    mobileMenuToggle.addEventListener('click', toggleMobileMenu);
+    mobileMenuOverlay.addEventListener('click', toggleMobileMenu);
+
+    // Close mobile menu when clicking on a link
+    mobileMenuLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            if (mobileMenu.classList.contains('active')) {
+                toggleMobileMenu();
+            }
+        });
+    });
+
     // Smooth scrolling
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
@@ -1317,6 +1956,30 @@
         }
     });
 
+    // Active menu link highlighting
+    function updateActiveMenuLink() {
+        const sections = document.querySelectorAll('.section');
+        const menuLinks = document.querySelectorAll('.nav-links a, .mobile-menu-links a');
+
+        let current = '';
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.clientHeight;
+            if (window.scrollY >= (sectionTop - 200)) {
+                current = section.getAttribute('id');
+            }
+        });
+
+        menuLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === `#${current}`) {
+                link.classList.add('active');
+            }
+        });
+    }
+
+    window.addEventListener('scroll', updateActiveMenuLink);
+
     // Intersection Observer for animations
     const observerOptions = {
         threshold: 0.15,
@@ -1335,6 +1998,26 @@
                         setTimeout(() => {
                             item.classList.add('fade-in-up');
                         }, index * 100);
+                    });
+                }
+
+                // Animate expertise cards
+                if (entry.target.classList.contains('expertises')) {
+                    const expertiseCards = entry.target.querySelectorAll('.expertise-card');
+                    expertiseCards.forEach((card, index) => {
+                        setTimeout(() => {
+                            card.classList.add('fade-in-up');
+                        }, index * 200);
+                    });
+                }
+
+                // Animate formation cards
+                if (entry.target.classList.contains('formations-clients')) {
+                    const formationCards = entry.target.querySelectorAll('.formation-client-item');
+                    formationCards.forEach((card, index) => {
+                        setTimeout(() => {
+                            card.classList.add('fade-in-up');
+                        }, index * 150);
                     });
                 }
             }
@@ -1396,7 +2079,7 @@
     });
 
     // Enhanced hover effects for cards
-    document.querySelectorAll('.project-card, .formation-item, .contact-item').forEach(card => {
+    document.querySelectorAll('.project-card, .formation-item, .formation-client-item, .contact-item, .expertise-card').forEach(card => {
         card.addEventListener('mouseenter', function() {
             this.style.transform = 'translateY(-12px) scale(1.02)';
         });
@@ -1427,25 +2110,13 @@
             }, 600);
         });
     });
-</script>
 
-<style>
-    /* Ripple effect */
-    .ripple {
-        position: absolute;
-        border-radius: 50%;
-        background: rgba(255, 255, 255, 0.3);
-        transform: scale(0);
-        animation: ripple-animation 0.6s linear;
-        pointer-events: none;
-    }
-
-    @keyframes ripple-animation {
-        to {
-            transform: scale(2);
-            opacity: 0;
+    // Close mobile menu on resize
+    window.addEventListener('resize', () => {
+        if (window.innerWidth > 1024 && mobileMenu.classList.contains('active')) {
+            toggleMobileMenu();
         }
-    }
-</style>
+    });
+</script>
 </body>
 </html>
